@@ -3,12 +3,42 @@
  */
 package com.datatheorem.dt_sast_demo;
 
+import java.io.*;
+import java.util.zip.*;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println(new App().getGreeting());
+
+		// Let's write some insecure code...
+		//
+		// 1. Download a .zip file over the network
+		ZipInputStream zis = new ZipInputStream(new FileInputStream("poc.zip"));
+		// 2. Iterate each file in the .zip
+		ZipEntry ent = zis.getNexEntry();
+		while (ent != null) {
+			// 3. Extract the zip entry to a file on the local filesystem
+			String fileName = ent.getName();
+			// "image.png"
+			// 'folder/'
+			// 'folder/abc.txt'
+			// '../../'
+			FileOutputStream fos = new FileOutputStream(fileName);
+			byte[] bytes = new byte[128];
+			int size = zis.read(bytes);
+			while (size != -1) {
+				fos.write(bytes, 0, size);
+				size = zis.read(bytes);
+			}
+			// 4. Iterate to the next file system in the .zip archive, if any
+			ent = zis.getNextEntry();
+		}
+		// 5. Clean up
+		zis.closeEntry();
+		zis.close();
     }
 }
