@@ -19,7 +19,7 @@ public class App {
 		// 1. Download a .zip file over the network
 		ZipInputStream zis = new ZipInputStream(new FileInputStream("poc.zip"));
 		// 2. Iterate each file in the .zip
-		ZipEntry ent = zis.getNexEntry();
+		ZipEntry ent = zis.getNextEntry();
 		while (ent != null) {
 			// 3. Extract the zip entry to a file on the local filesystem
 			String fileName = ent.getName();
