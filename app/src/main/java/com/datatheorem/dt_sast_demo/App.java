@@ -36,6 +36,5 @@ public class App {
 		// 5. Clean up
 		zis.closeEntry();
 		zis.close();
-
     }
 }
