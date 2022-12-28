@@ -3,30 +3,12 @@
  */
 package com.datatheorem.dt_sast_demo;
 
-import java.io.*;
-import java.util.zip.*;
-
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-        ZipInputStream zis = new ZipInputStream(new FileInputStream("poc.zip"));
-        ZipEntry ent = zis.getNextEntry();
-        while (ent != null) {
-            String fileName = ent.getName();
-            FileOutputStream fos = new FileOutputStream(fileName);
-            byte[] bytes = new byte[128];
-            int size = zis.read(bytes);
-            while (size != -1) {
-                fos.write(bytes, 0, size);
-                size = zis.read(bytes);
-            }
-            ent = zis.getNextEntry();
-        }
-        zis.closeEntry();
-        zis.close();
     }
 }
