@@ -9,5 +9,7 @@ public class App {
         wv.loadUrl("https://untrusted-web-content.com");
 
         System.out.printf("OAuth refresh token: 1/DGXUA3FmzHZnjEJDvX8ynqJCALJpo6ZT3IVNK6aBYHU");
+
+		System.out.println("Test with Victor");
     }
 }
