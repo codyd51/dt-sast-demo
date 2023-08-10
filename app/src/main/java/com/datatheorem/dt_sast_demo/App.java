@@ -12,5 +12,6 @@ public class App {
 
 		System.out.println("Test with Victor");
 		System.out.println("Test");
+		System.out.println("Test2");
     }
 }
